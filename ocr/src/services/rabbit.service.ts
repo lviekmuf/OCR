@@ -1,7 +1,7 @@
 import amqp, { Channel } from 'amqplib';
 import { config } from '../config';
-import { ImageService } from './imageServices';
-import { OCR } from './OCRService';
+import { ImageService } from './image.service';
+import { OCR } from './ocr.service';
 const FILE_NAME = 'image.jpg'
 const { url, queue } = config
 
