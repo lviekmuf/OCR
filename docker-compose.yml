@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  ocr:
+    build: ./ocr 
+    container_name: 'ocr'
+    command: npm run start:dev
+    restart: always
+    volumes:
+      - ./app:/ocr/src
+    ports:
+      - 3002:3002
+    environment:
+      - RABBITMQ_URL="amqp://user:user@rabbitmq:5672"
+      - QUEUE="ocr_queue"
+      - PORT=3002
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq_go_net
+  client:
+    build: ./client 
+    container_name: 'client'
+    command: npm run start:dev
+    restart: always
+    volumes:
+      - ./app:/client/src
+    ports:
+      - 3000:3000
+    environment:
+      - RABBITMQ_URL="amqp://user:user@rabbitmq:5672"
+      - QUEUE="ocr_queue"
+      - PORT=3000
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq_go_net
+
+  rabbitmq:   
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    hostname: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=user
+    networks:
+      - rabbitmq_go_net
+  
+networks:
+  rabbitmq_go_net:
+    driver: bridge
+

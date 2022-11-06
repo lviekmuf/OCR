@@ -1,0 +1,26 @@
+{
+    "name": "ocr",
+    "version": "1.0.0",
+    "description": "To run project use **docker-compose up**",
+    "main": "index.js",
+    "scripts": {
+        "start": "docker-compose -f docker-compose.yml up",
+        "init": "npm i && concurrently -n ocr,client  \"npm run init:ocr\" \"npm run init:client\"",
+        "init:ocr": "cd ocr && npm i",
+        "init:client": "cd client && npm i",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lviekmuf/ocr.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/lviekmuf/ocr/issues"
+    },
+    "homepage": "https://github.com/lviekmuf/ocr#readme",
+    "dependencies": {
+        "concurrently": "^7.5.0"
+    }
+}
