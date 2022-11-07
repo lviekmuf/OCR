@@ -27,7 +27,6 @@ describe('Sending message to Rabbit MQ', () => {
         jest.spyOn(amqp, 'connect').mockResolvedValueOnce(connection);
 
         await rabbitService.sendMessage(data)
-        jest.advanceTimersByTime(10000);
         expect(amqp.connect).toBeCalledWith(url);
         expect(connection.createChannel).toBeCalled();
         expect(channel.assertQueue).toBeCalledWith(queue);

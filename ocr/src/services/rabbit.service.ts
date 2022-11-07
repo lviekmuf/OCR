@@ -25,7 +25,7 @@ class RabbitService {
 
     async listenMessage() {
         try {
-\            await this.initChannel()
+            await this.initChannel()
             this.channel?.consume(this.queue, async (msg) => {
                 if (msg !== null) {
                     const { fileUrl } = JSON.parse(msg.content.toString());
