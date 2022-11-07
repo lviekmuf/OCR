@@ -8,7 +8,6 @@ class ImageService {
     }
     async saveFile(url: string, fileName:string) {
         const data = await this.download(url)
-        console.log(data)
         return new Promise((resolve, reject) => {
             data.pipe(fs.createWriteStream(fileName))
                 .on('error', reject)

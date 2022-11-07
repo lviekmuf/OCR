@@ -18,20 +18,19 @@ class RabbitService {
         this.ocrService = new OCR()
     }
     async initChannel() {
-        const connection = await amqp.connect('amqp://user:user@rabbitmq:5672');
+        const connection = await amqp.connect(this.url);
         this.channel = await connection.createChannel();
         await this.channel.assertQueue(this.queue);
     }
 
     async listenMessage() {
         try {
-            console.log("SDsd")
-            await this.initChannel()
+\            await this.initChannel()
             this.channel?.consume(this.queue, async (msg) => {
                 if (msg !== null) {
                     const { fileUrl } = JSON.parse(msg.content.toString());
                     console.log('File URL:', fileUrl);
-                    console.log('Processing...', fileUrl);
+                    console.log('Processing...');
                     await this.imageService.saveFile(fileUrl, FILE_NAME)
                     const recognizedText = await this.ocrService.recognizeText(FILE_NAME)
                     console.log('Recognized Text:\n', recognizedText);

@@ -8,7 +8,10 @@
         "init": "npm i && concurrently -n ocr,client  \"npm run init:ocr\" \"npm run init:client\"",
         "init:ocr": "cd ocr && npm i",
         "init:client": "cd client && npm i",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "rabbitmq": "docker compose  -f 'docker-compose.yml' up -d --build rabbitmq ",
+        "test": "npm i && concurrently -n ocr,client \"npm run test:ocr\" \"npm run test:client\"",
+        "test:ocr": "cd ocr && npm run test",
+        "test:client": "cd client && npm run test"
     },
     "repository": {
         "type": "git",
