@@ -1,6 +1,5 @@
-import * as fs from 'fs';
 import axios from 'axios';
-
+import * as fs from 'fs';
 class ImageService {
     async download(url: string) {
         const { data } = await axios.get(url, { responseType: 'stream' })
