@@ -26,10 +26,11 @@ describe('Consuming with Rabbit MQ', async () => {
 
         jest.spyOn(amqp, 'connect').mockResolvedValueOnce(connection);
 
-        await rabbitService.listenMessage();
-        expect(amqp.connect).toBeCalledWith(url);
-        expect(connection.createChannel).toBeCalled();
-        expect(channel.assertQueue).toBeCalledWith(queue);
-        // expect(channel.consume).toBeCalledWith(queue, expect.any(Function));
+        const sdsd = await rabbitService.listenMessage();
+        console.log(sdsd)
+        // expect(amqp.connect).toBeCalledWith(url);
+        // expect(connection.createChannel).toBeCalled();
+        // expect(channel.assertQueue).toBeCalledWith(queue);
+        expect(channel.consume).toBeCalledWith(queue, expect.any(Function));
     });
 });
